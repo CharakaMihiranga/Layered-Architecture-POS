@@ -141,10 +141,10 @@ public class ManageItemsFormController {
             if (!existItem(code)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
-            Connection connection = DBConnection.getDbConnection().getConnection();
-            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
-            pstm.setString(1, code);
-            pstm.executeUpdate();
+          ItemDaoImpl itemDao = new ItemDaoImpl();
+          boolean isDeleted = itemDao.deleteItem(code);
+
+          if (isDeleted){ new Alert(Alert.AlertType.INFORMATION,"Item Updated!").show(); }
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -225,10 +225,10 @@ public class ManageItemsFormController {
 
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
-        pstm.setString(1, code);
-        return pstm.executeQuery().next();
+       ItemDaoImpl itemDao = new ItemDaoImpl();
+       boolean isExist = itemDao.isExist(code);
+
+       return isExist;
     }
 
 

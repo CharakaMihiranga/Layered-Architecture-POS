@@ -47,4 +47,22 @@ public class ItemDaoImpl {
 
         return pstm.executeUpdate() > 0;
     }
+
+    public boolean deleteItem(String id) throws SQLException, ClassNotFoundException {
+
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
+        pstm.setString(1, id);
+
+        return pstm.executeUpdate() > 0;
+    }
+    public boolean isExist(String id) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
+        pstm.setString(1, id);
+
+        return pstm.executeQuery().next();
+    }
+
+    public String generateNextId(){return "";}
 }
