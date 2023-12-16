@@ -7,7 +7,9 @@ import com.example.layeredarchitecture.model.ItemDTO;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDaoImpl {
+public class ItemDaoImpl implements ItemDAO{
+
+    @Override
     public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         Statement stm = connection.createStatement();
@@ -26,6 +28,8 @@ public class ItemDaoImpl {
         }
         return allItems;
     }
+
+    @Override
     public boolean saveItems(ItemDTO itemDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
@@ -37,6 +41,7 @@ public class ItemDaoImpl {
         return pstm.executeUpdate() > 0;
     }
 
+    @Override
     public boolean updateItem(ItemDTO itemDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
@@ -48,6 +53,7 @@ public class ItemDaoImpl {
         return pstm.executeUpdate() > 0;
     }
 
+    @Override
     public boolean deleteItem(String id) throws SQLException, ClassNotFoundException {
 
         Connection connection = DBConnection.getDbConnection().getConnection();
@@ -56,6 +62,8 @@ public class ItemDaoImpl {
 
         return pstm.executeUpdate() > 0;
     }
+
+    @Override
     public boolean isExist(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
@@ -64,5 +72,6 @@ public class ItemDaoImpl {
         return pstm.executeQuery().next();
     }
 
+    @Override
     public String generateNextId(){return "";}
 }

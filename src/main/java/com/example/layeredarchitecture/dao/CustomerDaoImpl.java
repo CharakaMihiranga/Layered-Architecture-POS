@@ -9,8 +9,9 @@ import javafx.scene.control.Alert;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CustomerDaoImpl {
+public class CustomerDaoImpl implements CustomerDAO{
 
+    @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
         /*Get all customers*/
         Connection connection = DBConnection.getDbConnection().getConnection();
@@ -30,6 +31,7 @@ public class CustomerDaoImpl {
         return allCustomers;
     }
 
+    @Override
     public boolean saveCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT INTO Customer (id,name, address) VALUES (?,?,?)");
@@ -41,6 +43,7 @@ public class CustomerDaoImpl {
 
     }
 
+    @Override
     public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
@@ -50,6 +53,8 @@ public class CustomerDaoImpl {
 
         return pstm.executeUpdate() > 0;
     }
+
+    @Override
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
@@ -57,6 +62,8 @@ public class CustomerDaoImpl {
 
         return pstm.executeUpdate() > 0;
     }
+
+    @Override
     public boolean isExistCustomer(String id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
@@ -64,6 +71,8 @@ public class CustomerDaoImpl {
 
         return pstm.executeQuery().next();
     }
+
+    @Override
     public String generateNewId() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");

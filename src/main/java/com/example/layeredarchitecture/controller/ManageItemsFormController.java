@@ -1,6 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.dao.CustomerDaoImpl;
+import com.example.layeredarchitecture.dao.ItemDAO;
 import com.example.layeredarchitecture.dao.ItemDaoImpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
@@ -74,7 +75,7 @@ public class ManageItemsFormController {
         tblItems.getItems().clear();
         try {
             /*Get all items*/
-            ItemDaoImpl itemDao = new ItemDaoImpl();
+            ItemDAO itemDao = new ItemDaoImpl();
             ArrayList<ItemDTO> allItems = itemDao.getAllItems();
 
             for (ItemDTO itemDTO : allItems ){
@@ -141,7 +142,7 @@ public class ManageItemsFormController {
             if (!existItem(code)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
-          ItemDaoImpl itemDao = new ItemDaoImpl();
+          ItemDAO itemDao = new ItemDaoImpl();
           boolean isDeleted = itemDao.deleteItem(code);
 
           if (isDeleted){ new Alert(Alert.AlertType.INFORMATION,"Item Updated!").show(); }
@@ -184,7 +185,7 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, code + " already exists").show();
                 }
                 //Save Item
-               ItemDaoImpl itemDao = new ItemDaoImpl();
+               ItemDAO itemDao = new ItemDaoImpl();
                boolean isSaved = itemDao.saveItems(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                if (isSaved){ new Alert(Alert.AlertType.CONFIRMATION,"Item Saved!").show(); }
@@ -203,7 +204,7 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
                 }
                 /*Update Item*/
-              ItemDaoImpl itemDao = new ItemDaoImpl();
+              ItemDAO itemDao = new ItemDaoImpl();
               boolean isUpdated = itemDao.updateItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
               if (isUpdated){ new Alert(Alert.AlertType.CONFIRMATION,"Item Updated!").show(); }
@@ -225,7 +226,7 @@ public class ManageItemsFormController {
 
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-       ItemDaoImpl itemDao = new ItemDaoImpl();
+       ItemDAO itemDao = new ItemDaoImpl();
        boolean isExist = itemDao.isExist(code);
 
        return isExist;

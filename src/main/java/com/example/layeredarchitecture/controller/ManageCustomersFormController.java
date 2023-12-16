@@ -1,5 +1,6 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.dao.CustomerDAO;
 import com.example.layeredarchitecture.dao.CustomerDaoImpl;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
@@ -69,7 +70,7 @@ public class ManageCustomersFormController {
         tblCustomers.getItems().clear();
         /*Get all customers*/
         try {
-            CustomerDaoImpl customerDao = new CustomerDaoImpl();
+            CustomerDAO customerDao = new CustomerDaoImpl();
             ArrayList <CustomerDTO> allCustomer = customerDao.getAllCustomers();
 
             for (CustomerDTO customerDTO : allCustomer ){
@@ -148,7 +149,7 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
 
-               CustomerDaoImpl customerDao = new CustomerDaoImpl();
+               CustomerDAO customerDao = new CustomerDaoImpl();
                boolean isSaved = customerDao.saveCustomer(new CustomerDTO(id,name,address));
 
                if (!isSaved){
@@ -196,7 +197,7 @@ public class ManageCustomersFormController {
 
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-      CustomerDaoImpl customerDao = new CustomerDaoImpl();
+      CustomerDAO customerDao = new CustomerDaoImpl();
       boolean isExist = customerDao.isExistCustomer(id);
 
       return isExist;
@@ -210,7 +211,7 @@ public class ManageCustomersFormController {
             if (!existCustomer(id)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
-           CustomerDaoImpl customerDao = new CustomerDaoImpl();
+          CustomerDAO customerDao = new CustomerDaoImpl();
            boolean isSaved = customerDao.deleteCustomer(id);
 
            if (isSaved){
@@ -229,7 +230,7 @@ public class ManageCustomersFormController {
 
     private String generateNewId() {
         try {
-            CustomerDaoImpl customerDao = new CustomerDaoImpl();
+            CustomerDAO customerDao = new CustomerDaoImpl();
             customerDao.generateNewId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
