@@ -21,4 +21,7 @@ public interface ItemDAO {
 
 
     public String generateNextId() throws SQLException, ClassNotFoundException;
+
+    public ItemDTO findItem(String newItemCode) throws SQLException, ClassNotFoundException;
+
 }
