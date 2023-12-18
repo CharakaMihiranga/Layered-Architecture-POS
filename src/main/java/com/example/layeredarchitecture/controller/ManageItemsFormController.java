@@ -1,13 +1,8 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.dao.CustomerDAO;
-import com.example.layeredarchitecture.dao.CustomerDaoImpl;
-import com.example.layeredarchitecture.dao.ItemDAO;
-import com.example.layeredarchitecture.dao.ItemDaoImpl;
-import com.example.layeredarchitecture.db.DBConnection;
-import com.example.layeredarchitecture.model.CustomerDTO;
+import com.example.layeredarchitecture.dao.Custom.ItemDAO;
+import com.example.layeredarchitecture.dao.Custom.Impl.ItemDaoImpl;
 import com.example.layeredarchitecture.model.ItemDTO;
-import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -79,7 +74,7 @@ public class ManageItemsFormController {
         try {
             /*Get all items*/
             ItemDAO itemDao = new ItemDaoImpl();
-            ArrayList<ItemDTO> allItems = itemDao.getAllItems();
+            ArrayList<ItemDTO> allItems = itemDao.getAll();
 
             for (ItemDTO itemDTO : allItems ){
                 tblItems.getItems().add(
@@ -146,7 +141,7 @@ public class ManageItemsFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
           ItemDAO itemDao = new ItemDaoImpl();
-          boolean isDeleted = itemDao.deleteItem(code);
+          boolean isDeleted = itemDao.delete(code);
 
           if (isDeleted){ new Alert(Alert.AlertType.INFORMATION,"Item Updated!").show(); }
 
@@ -189,7 +184,7 @@ public class ManageItemsFormController {
                 }
                 //Save Item
                ItemDAO itemDao = new ItemDaoImpl();
-               boolean isSaved = itemDao.saveItems(new ItemDTO(code,description,unitPrice,qtyOnHand));
+               boolean isSaved = itemDao.save(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                if (isSaved){ new Alert(Alert.AlertType.CONFIRMATION,"Item Saved!").show(); }
 
@@ -208,7 +203,7 @@ public class ManageItemsFormController {
                 }
                 /*Update Item*/
               ItemDAO itemDao = new ItemDaoImpl();
-              boolean isUpdated = itemDao.updateItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
+              boolean isUpdated = itemDao.update(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
               if (isUpdated){ new Alert(Alert.AlertType.CONFIRMATION,"Item Updated!").show(); }
 
@@ -230,7 +225,7 @@ public class ManageItemsFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
        ItemDAO itemDao = new ItemDaoImpl();
-       boolean isExist = itemDao.isExist(code);
+       boolean isExist = itemDao.exist(code);
 
        return isExist;
     }
@@ -239,7 +234,7 @@ public class ManageItemsFormController {
     private String generateNewId() {
         try {
             ItemDAO itemDAO=new ItemDaoImpl();
-            return itemDAO.generateNextId();
+            return itemDAO.generateID();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {

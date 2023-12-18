@@ -1,6 +1,9 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.dao.*;
+import com.example.layeredarchitecture.dao.Custom.Impl.*;
+import com.example.layeredarchitecture.dao.Custom.ItemDAO;
+import com.example.layeredarchitecture.dao.Custom.OrderDAO;
+import com.example.layeredarchitecture.dao.Custom.OrderDetailDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
@@ -103,13 +106,13 @@ public class PlaceOrderFormController {
                     /*Search Customer*/
 
                     try {
-                        if (!existCustomer(newValue + "")) {
+                        if (existCustomer(newValue + "")) {
 //                            "There is no such customer associated with the id " + id
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
 
 
-                        CustomerDTO customerDTO = customerDao.searchCustomer(newValue);
+                        CustomerDTO customerDTO = customerDao.search(newValue);
 
                         if (customerDTO != null) {
                             txtCustomerName.setText(customerDTO.getName());
@@ -185,14 +188,14 @@ public class PlaceOrderFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
         CustomerDAO customerDao = new CustomerDaoImpl();
-        boolean isExist = customerDao.isExistCustomer(code);
+        boolean isExist = customerDao.exist(code);
 
         return isExist;
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
         ItemDAO itemDao = new ItemDaoImpl();
-        boolean isExist = itemDao.isExist(id);
+        boolean isExist = itemDao.exist(id);
 
         return isExist;
     }
@@ -217,7 +220,7 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            ArrayList<CustomerDTO> allCustomers = customerDao.getAllCustomers();
+            ArrayList<CustomerDTO> allCustomers = customerDao.getAll();
 
             for (CustomerDTO dto : allCustomers) {
                 cmbCustomerId.getItems().add(dto.getId());
@@ -234,7 +237,7 @@ public class PlaceOrderFormController {
         try {
             /*Get all items*/
             ItemDaoImpl itemDao = new ItemDaoImpl();
-            ArrayList<ItemDTO> allItem = itemDao.getAllItems();
+            ArrayList<ItemDTO> allItem = itemDao.getAll();
 
             for (ItemDTO dto : allItem) {
                 cmbItemCode.getItems().add(dto.getCode());
@@ -374,7 +377,7 @@ public class PlaceOrderFormController {
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
                 //update item
-                boolean b = itemDao.updateItem(new ItemDTO(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand()));
+                boolean b = itemDao.update(new ItemDTO(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand()));
 
                 if (!b) {
                     connection.rollback();
