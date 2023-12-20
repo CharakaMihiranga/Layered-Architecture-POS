@@ -5,6 +5,7 @@ import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.OrderDTO;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 public class OrderDaoImpl implements OrderDAO {
 
@@ -28,12 +29,13 @@ public class OrderDaoImpl implements OrderDAO {
         return rst.next();
     }
     @Override
-    public boolean saveOrder(OrderDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean saveOrder(String orderID, LocalDate orderDate,String customerID) throws SQLException, ClassNotFoundException {
+        System.out.println("Date in Sql : "+ orderDate);
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement stm = connection.prepareStatement("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)");
-        stm.setString(1, dto.getOrderId());
-        stm.setDate(2, Date.valueOf(dto.getOrderDate()));
-        stm.setString(3, dto.getCustomerId());
+        stm.setString(1, orderID);
+        stm.setDate(2, Date.valueOf(orderDate));
+        stm.setString(3, customerID);
 
         return stm.executeUpdate()>0;
     }

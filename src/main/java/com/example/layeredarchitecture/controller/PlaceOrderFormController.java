@@ -335,7 +335,7 @@ public class PlaceOrderFormController {
         calculateTotal();
     }
 
-    public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
+    public boolean saveOrder(String orderId, LocalDate Date, String customerId, List<OrderDetailDTO> orderDetails) {
         /*Transaction*/
 
         Connection connection = null;
@@ -353,7 +353,7 @@ public class PlaceOrderFormController {
             connection.setAutoCommit(false);
 
             //Save the Order to the order table
-            boolean b2 = orderDao.saveOrder(new OrderDTO(orderId, orderDate, customerId));
+            boolean b2 = orderDao.saveOrder(orderId, Date, customerId);
 
             if (!b2) {
                 connection.rollback();
