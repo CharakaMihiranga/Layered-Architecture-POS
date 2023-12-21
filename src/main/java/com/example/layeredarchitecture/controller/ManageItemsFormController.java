@@ -143,7 +143,7 @@ public class ManageItemsFormController {
           ItemDAO itemDao = new ItemDaoImpl();
           boolean isDeleted = itemDao.delete(code);
 
-          if (isDeleted){ new Alert(Alert.AlertType.INFORMATION,"Item Updated!").show(); }
+          if (isDeleted){ new Alert(Alert.AlertType.INFORMATION,"Item Deleted!").show(); }
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();

@@ -106,7 +106,7 @@ public class PlaceOrderFormController {
                     /*Search Customer*/
 
                     try {
-                        if (existCustomer(newValue + "")) {
+                        if (!existCustomer(newValue + "")) {
 //                            "There is no such customer associated with the id " + id
                             new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + newValue + "").show();
                         }
@@ -194,8 +194,8 @@ public class PlaceOrderFormController {
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-        ItemDAO itemDao = new ItemDaoImpl();
-        boolean isExist = itemDao.exist(id);
+        CustomerDAO customerDAO = new CustomerDaoImpl();
+        boolean isExist = customerDAO.exist(id);
 
         return isExist;
     }
