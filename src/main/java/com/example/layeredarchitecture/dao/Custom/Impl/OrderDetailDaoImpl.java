@@ -8,6 +8,7 @@ import com.example.layeredarchitecture.model.OrderDetailDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class OrderDetailDaoImpl implements OrderDetailDAO {
    @Override
@@ -23,5 +24,40 @@ public class OrderDetailDaoImpl implements OrderDetailDAO {
 
        return SQLUtil.execute("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)",
                orderId,orderDetailDTO.getItemCode(),orderDetailDTO.getUnitPrice(),orderDetailDTO.getQty());
+    }
+
+    @Override
+    public ArrayList<OrderDetailDAO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(OrderDetailDAO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(OrderDetailDAO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String generateID() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public OrderDetailDAO search(String id) throws SQLException, ClassNotFoundException {
+        return null;
     }
 }

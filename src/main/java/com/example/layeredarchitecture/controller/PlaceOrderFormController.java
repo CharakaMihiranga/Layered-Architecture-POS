@@ -1,5 +1,6 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.Custom.Impl.*;
 import com.example.layeredarchitecture.dao.Custom.ItemDAO;
 import com.example.layeredarchitecture.dao.Custom.OrderDAO;
@@ -7,7 +8,6 @@ import com.example.layeredarchitecture.dao.Custom.OrderDetailDAO;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
-import com.example.layeredarchitecture.model.OrderDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 import com.example.layeredarchitecture.view.tdm.OrderDetailTM;
 import com.jfoenix.controls.JFXButton;

@@ -7,6 +7,7 @@ import com.example.layeredarchitecture.model.OrderDTO;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class OrderDaoImpl implements OrderDAO {
 
@@ -45,4 +46,38 @@ public class OrderDaoImpl implements OrderDAO {
                 orderID,orderDate,customerID);
     }
 
+    @Override
+    public ArrayList<OrderDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(OrderDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(OrderDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String generateID() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public OrderDTO search(String id) throws SQLException, ClassNotFoundException {
+        return null;
+    }
 }

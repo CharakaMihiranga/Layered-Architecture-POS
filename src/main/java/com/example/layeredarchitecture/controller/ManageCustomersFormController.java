@@ -1,6 +1,6 @@
 package com.example.layeredarchitecture.controller;
 
-import com.example.layeredarchitecture.dao.Custom.Impl.CustomerDAO;
+import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.Custom.Impl.CustomerDaoImpl;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
