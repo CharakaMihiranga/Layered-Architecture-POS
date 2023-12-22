@@ -78,8 +78,8 @@ public class ItemDaoImpl implements ItemDAO {
 //
 //        return pstm.executeQuery().next();
 
-        return SQLUtil.execute("SELECT code FROM Item WHERE code=?",
-                id);
+        ResultSet rst = SQLUtil.execute("SELECT code FROM Item WHERE code=?", id);
+        return rst.next();
     }
 
     @Override
