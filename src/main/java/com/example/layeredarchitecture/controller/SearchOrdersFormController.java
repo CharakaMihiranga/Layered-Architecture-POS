@@ -2,7 +2,9 @@ package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.dao.Custom.Impl.OrderDaoImpl;
 import com.example.layeredarchitecture.dao.Custom.Impl.QueryDaoImpl;
+import com.example.layeredarchitecture.dao.Custom.QueryDAO;
 import com.example.layeredarchitecture.model.OrderDTO;
+import com.example.layeredarchitecture.model.SearchDTO;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,11 +25,32 @@ import java.util.ArrayList;
 public class SearchOrdersFormController {
 
     @FXML
+    private Label unitPrice;
+    @FXML
+    private Label lblQty;
+    @FXML
+    private Label itemCode;
+    @FXML
+    private Label cusId;
+
+    @FXML
+    private Label cusName;
+
+    @FXML
+    private Label orderDate;
+
+    @FXML
+    private Label orderTotal;
+
+    @FXML
     private ComboBox orderID;
+
     @FXML
     private AnchorPane root;
 
-    QueryDaoImpl queryDao = new QueryDaoImpl();
+    QueryDAO queryDao = new QueryDaoImpl();
+
+    ArrayList<SearchDTO> allOrderDetails= new ArrayList<>();
 
     public void initialize(){
         loadAllOrderIds();
@@ -34,11 +58,10 @@ public class SearchOrdersFormController {
 
     private void loadAllOrderIds() {
         try {
-            ArrayList<OrderDTO> allOrders = queryDao.getOrderDetail();
+             allOrderDetails = queryDao.getOrderDetail();
 
-            for (OrderDTO dto : allOrders ) {
+            for (SearchDTO dto : allOrderDetails ) {
                 orderID.getItems().add(dto.getOrderId());
-                System.out.println("Order ID : " + dto.getOrderId());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -59,5 +82,19 @@ public class SearchOrdersFormController {
     }
 
     public void cmbOnAction(ActionEvent actionEvent) {
+        String cmdId = (String) orderID.getValue();
+
+        for (int i = 0; i < allOrderDetails.size(); i++) {
+            if (allOrderDetails.get(i).getOrderId() == cmdId){
+                cusId.setText(allOrderDetails.get(i).getCustomerId());
+                cusName.setText(allOrderDetails.get(i).getCustomerName());
+                orderDate.setText(String.valueOf(allOrderDetails.get(i).getOrderDate()));
+                orderTotal.setText(String.valueOf(allOrderDetails.get(i).getOrderTotal()));
+                itemCode.setText(String.valueOf(allOrderDetails.get(i).getItemCode()));
+                lblQty.setText(String.valueOf(allOrderDetails.get(i).getQty()));
+                unitPrice.setText(String.valueOf(allOrderDetails.get(i).getUnitPrice()));
+            }
+        }
+
     }
 }
