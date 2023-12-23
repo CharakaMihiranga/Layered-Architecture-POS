@@ -1,11 +1,13 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.bo.CustomerBO;
 import com.example.layeredarchitecture.bo.PlaceOrderBO;
 import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.Custom.Impl.*;
 import com.example.layeredarchitecture.dao.FactoryBO;
 import com.example.layeredarchitecture.entity.Customer;
 import com.example.layeredarchitecture.entity.Item;
+import com.example.layeredarchitecture.entity.OrderDetail;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
@@ -55,7 +57,8 @@ public class PlaceOrderFormController {
     public Label lblTotal;
     private String orderId;
 
-    CustomerDAO customerDao = (CustomerDAO) FactoryBO.getBoFactory().getBO(FactoryBO.BOTypes.CUSTOMERBO);
+
+    CustomerBO customerDao = (CustomerBO) FactoryBO.getBoFactory().getBO(FactoryBO.BOTypes.CUSTOMERBO);
     PlaceOrderBO placeOrderBO = (PlaceOrderBO) FactoryBO.getBoFactory().getBO(FactoryBO.BOTypes.PLACEORDERBO);
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -186,14 +189,14 @@ public class PlaceOrderFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
 
-        boolean isExist = customerDao.exist(code);
+        boolean isExist = customerDao.existCustomer(code);
 
         return isExist;
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
 
-        boolean isExist = customerDao.exist(id);
+        boolean isExist = customerDao.existCustomer(id);
 
         return isExist;
     }
@@ -218,7 +221,7 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            ArrayList<Customer> allCustomers = customerDao.getAll();
+            ArrayList<Customer> allCustomers = customerDao.getAllCustomers();
 
             for (Customer dto : allCustomers) {
                 cmbCustomerId.getItems().add(dto.getId());
@@ -316,7 +319,7 @@ public class PlaceOrderFormController {
     public void btnPlaceOrder_OnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
         boolean b = placeOrderBO.PlaceOrder(orderId, LocalDate.now(), cmbCustomerId.getValue(),
-                tblOrderDetails.getItems().stream().map(tm -> new OrderDetailDTO(tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
+                tblOrderDetails.getItems().stream().map(tm -> new OrderDetail(tm.getCode(), tm.getQty(), tm.getUnitPrice())).collect(Collectors.toList()));
 
         if (b) {
             new Alert(Alert.AlertType.INFORMATION, "Order has been placed successfully").show();
@@ -333,7 +336,7 @@ public class PlaceOrderFormController {
         calculateTotal();
     }
 
-    public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
+    public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetail> orderDetails) throws SQLException, ClassNotFoundException {
         return placeOrderBO.PlaceOrder(orderId, orderDate, customerId, orderDetails);
     }
 }

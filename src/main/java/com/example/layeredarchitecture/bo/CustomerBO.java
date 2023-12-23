@@ -2,9 +2,11 @@ package com.example.layeredarchitecture.bo;
 
 import com.example.layeredarchitecture.SuperDAO;
 import com.example.layeredarchitecture.bo.SuperBO;
+import com.example.layeredarchitecture.dao.SQLUtil;
 import com.example.layeredarchitecture.entity.Customer;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,4 +17,5 @@ public interface CustomerBO extends SuperBO {
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException;
     public String generateID() throws SQLException, ClassNotFoundException;
     public ArrayList<Customer> getAllCustomers() throws SQLException, ClassNotFoundException;
+    public Customer search(String newValue) throws SQLException, ClassNotFoundException;
 }

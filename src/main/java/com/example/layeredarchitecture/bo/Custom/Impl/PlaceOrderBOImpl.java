@@ -7,6 +7,7 @@ import com.example.layeredarchitecture.dao.Custom.OrderDetailDAO;
 import com.example.layeredarchitecture.dao.DAOFactory;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.entity.Item;
+import com.example.layeredarchitecture.entity.OrderDetail;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 
@@ -23,7 +24,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
 
 
     @Override
-    public boolean PlaceOrder(String orderId, LocalDate date, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
+    public boolean PlaceOrder(String orderId, LocalDate date, String customerId, List<OrderDetail> orderDetails) throws SQLException, ClassNotFoundException {
         /*Transaction*/
         Connection connection = null;
         connection= DBConnection.getDbConnection().getConnection();
@@ -50,7 +51,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
 
         // add data to the Order Details table
 
-        for (OrderDetailDTO detail : orderDetails) {
+        for (OrderDetail detail : orderDetails) {
             boolean b3 = orderDetailDao.saveOrderDetail(orderId,detail);
             if (!b3) {
                 connection.rollback();
