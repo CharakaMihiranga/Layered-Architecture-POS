@@ -1,5 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.bo.CustomerBO;
+import com.example.layeredarchitecture.bo.CustomerBOImpl;
 import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.Custom.Impl.CustomerDaoImpl;
 import com.example.layeredarchitecture.model.CustomerDTO;
@@ -39,7 +41,8 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
     //property injection (Dependency injection)
-    CustomerDAO customerDAO=new CustomerDaoImpl();
+    CustomerBO customerBO = new CustomerBOImpl();
+    CustomerDAO customerDAO = new CustomerDaoImpl();
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -151,8 +154,8 @@ public class ManageCustomersFormController {
                     new Alert(Alert.AlertType.ERROR, id + " already exists").show();
                 }
 
-               CustomerDAO customerDao = new CustomerDaoImpl();
-               boolean isSaved = customerDao.save(new CustomerDTO(id,name,address));
+
+               boolean isSaved = customerBO.save(new CustomerDTO(id,name,address));
 
                if (!isSaved){
                    new Alert(Alert.AlertType.ERROR ,"Failed to save the customer!");

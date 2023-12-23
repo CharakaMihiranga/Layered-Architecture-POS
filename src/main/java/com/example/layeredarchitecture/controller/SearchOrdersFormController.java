@@ -86,6 +86,7 @@ public class SearchOrdersFormController {
 
         for (int i = 0; i < allOrderDetails.size(); i++) {
             if (allOrderDetails.get(i).getOrderId() == cmdId){
+
                 cusId.setText(allOrderDetails.get(i).getCustomerId());
                 cusName.setText(allOrderDetails.get(i).getCustomerName());
                 orderDate.setText(String.valueOf(allOrderDetails.get(i).getOrderDate()));
@@ -93,6 +94,7 @@ public class SearchOrdersFormController {
                 itemCode.setText(String.valueOf(allOrderDetails.get(i).getItemCode()));
                 lblQty.setText(String.valueOf(allOrderDetails.get(i).getQty()));
                 unitPrice.setText(String.valueOf(allOrderDetails.get(i).getUnitPrice()));
+
             }
         }
 
