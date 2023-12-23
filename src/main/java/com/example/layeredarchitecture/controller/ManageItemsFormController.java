@@ -2,6 +2,7 @@ package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.bo.ItemBO;
 import com.example.layeredarchitecture.bo.Custom.Impl.ItemBOImpl;
+import com.example.layeredarchitecture.dao.FactoryBO;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
@@ -39,7 +40,7 @@ public class ManageItemsFormController {
 
     //property injection (Dependency injection)
 
-    ItemBO itemBO = new ItemBOImpl();
+    ItemBO itemBO = (ItemBO) FactoryBO.getBoFactory().getBO(FactoryBO.BOTypes.ITEMBO);
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
         tblItems.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("description"));

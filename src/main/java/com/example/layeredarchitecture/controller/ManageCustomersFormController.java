@@ -1,7 +1,7 @@
 package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.bo.CustomerBO;
-import com.example.layeredarchitecture.bo.Custom.Impl.CustomerBOImpl;
+import com.example.layeredarchitecture.dao.FactoryBO;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.jfoenix.controls.JFXButton;
@@ -39,7 +39,7 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
     //property injection (Dependency injection)
-    CustomerBO customerBO = new CustomerBOImpl();
+    CustomerBO customerBO = (CustomerBO) FactoryBO.getBoFactory().getBO(FactoryBO.BOTypes.CUSTOMERBO);
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
