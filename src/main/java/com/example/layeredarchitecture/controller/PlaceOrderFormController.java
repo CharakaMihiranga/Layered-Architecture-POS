@@ -1,10 +1,10 @@
 package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.bo.PlaceOrderBO;
-import com.example.layeredarchitecture.bo.Custom.Impl.PlaceOrderBOImpl;
 import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.Custom.Impl.*;
 import com.example.layeredarchitecture.dao.FactoryBO;
+import com.example.layeredarchitecture.entity.Customer;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
@@ -109,10 +109,10 @@ public class PlaceOrderFormController {
                         }
 
 
-                        CustomerDTO customerDTO = customerDao.search(newValue);
+                        Customer customer = customerDao.search(newValue);
 
-                        if (customerDTO != null) {
-                            txtCustomerName.setText(customerDTO.getName());
+                        if (customer != null) {
+                            txtCustomerName.setText(customer.getName());
                         }
                     } catch (SQLException e) {
                         new Alert(Alert.AlertType.ERROR, "Failed to find the customer " + newValue + "" + e).show();
@@ -217,9 +217,9 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            ArrayList<CustomerDTO> allCustomers = customerDao.getAll();
+            ArrayList<Customer> allCustomers = customerDao.getAll();
 
-            for (CustomerDTO dto : allCustomers) {
+            for (Customer dto : allCustomers) {
                 cmbCustomerId.getItems().add(dto.getId());
             }
 

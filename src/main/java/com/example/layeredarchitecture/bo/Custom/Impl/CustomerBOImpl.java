@@ -2,8 +2,8 @@ package com.example.layeredarchitecture.bo.Custom.Impl;
 
 import com.example.layeredarchitecture.bo.CustomerBO;
 import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
-import com.example.layeredarchitecture.dao.Custom.Impl.CustomerDaoImpl;
 import com.example.layeredarchitecture.dao.DAOFactory;
+import com.example.layeredarchitecture.entity.Customer;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
 import java.sql.SQLException;
@@ -16,12 +16,12 @@ public class CustomerBOImpl implements CustomerBO {
     @Override
     public boolean saveCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         //customer business logic example
-        return customerDAO.save(dto);
+        return customerDAO.save(new Customer(dto.getId(),dto.getName(),dto.getAddress()));
     }
 
     @Override
     public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
-        return customerDAO.update(customerDTO);
+        return customerDAO.update(new Customer(customerDTO.getId(),customerDTO.getName(),customerDTO.getAddress()));
     }
 
     @Override
@@ -41,7 +41,12 @@ public class CustomerBOImpl implements CustomerBO {
 
     @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
-        return customerDAO.getAll();
+        ArrayList<Customer> customers = customerDAO.getAll();
+        ArrayList<CustomerDTO> customerDTOS = new ArrayList<>();
+        for (Customer customer : customers){
+            customerDTOS.add(new CustomerDTO(customer.getId(),customer.getName(),customer.getAddress()));
+        }
+        return customerDTOS;
     }
 
 }
