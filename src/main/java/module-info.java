@@ -10,4 +10,6 @@ module com.example.layeredarchitecture {
 
     exports com.example.layeredarchitecture;
     exports com.example.layeredarchitecture.controller;
+    exports com.example.layeredarchitecture.Notes;
+    opens com.example.layeredarchitecture.Notes to javafx.fxml;
 }
