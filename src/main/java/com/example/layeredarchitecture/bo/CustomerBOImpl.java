@@ -10,13 +10,15 @@ import java.util.ArrayList;
 public class CustomerBOImpl implements CustomerBO{
 
     CustomerDAO customerDAO=new CustomerDaoImpl();
+
     @Override
-    public boolean save(CustomerDTO dto) throws SQLException, ClassNotFoundException{
+    public boolean saveCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         //customer business logic example
         return customerDAO.save(dto);
     }
+
     @Override
-    public boolean update(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException{
+    public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException, ClassNotFoundException {
         return customerDAO.update(customerDTO);
     }
 
@@ -26,7 +28,7 @@ public class CustomerBOImpl implements CustomerBO{
     }
 
     @Override
-    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+    public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
         return customerDAO.delete(id);
     }
 
@@ -36,7 +38,7 @@ public class CustomerBOImpl implements CustomerBO{
     }
 
     @Override
-    public ArrayList<CustomerDTO> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
         return customerDAO.getAll();
     }
 
