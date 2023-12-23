@@ -1,6 +1,7 @@
 package com.example.layeredarchitecture.dao;
 
-import com.example.layeredarchitecture.dao.Custom.Impl.CustomerDaoImpl;
+import com.example.layeredarchitecture.SuperDAO;
+import com.example.layeredarchitecture.dao.Custom.Impl.*;
 
 public class DAOFactory {
     //singleton
@@ -14,6 +15,23 @@ public class DAOFactory {
 
     public enum DAOTypes {
         CUSTOMER,ITEM,ORDER,ORDER_DETAIL,QUERY
+    }
+
+    public SuperDAO getDAO(DAOTypes daoTypes) {
+        switch (daoTypes) {
+            case CUSTOMER:
+                return new CustomerDaoImpl();
+            case ITEM:
+                return new ItemDaoImpl();
+            case ORDER:
+                return new OrderDaoImpl();
+            case ORDER_DETAIL:
+                return new OrderDetailDaoImpl();
+            case QUERY:
+                return new QueryDaoImpl();
+            default:
+                return null;
+        }
     }
 
 }
