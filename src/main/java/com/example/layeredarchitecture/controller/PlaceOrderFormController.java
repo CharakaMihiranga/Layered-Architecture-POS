@@ -5,6 +5,7 @@ import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.Custom.Impl.*;
 import com.example.layeredarchitecture.dao.FactoryBO;
 import com.example.layeredarchitecture.entity.Customer;
+import com.example.layeredarchitecture.entity.Item;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
@@ -234,9 +235,9 @@ public class PlaceOrderFormController {
         try {
             /*Get all items*/
             ItemDaoImpl itemDao = new ItemDaoImpl();
-            ArrayList<ItemDTO> allItem = itemDao.getAll();
+            ArrayList<Item> allItem = itemDao.getAll();
 
-            for (ItemDTO dto : allItem) {
+            for (Item dto : allItem) {
                 cmbItemCode.getItems().add(dto.getCode());
             }
         } catch (SQLException e) {

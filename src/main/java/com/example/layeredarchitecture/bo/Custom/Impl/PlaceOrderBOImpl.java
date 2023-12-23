@@ -6,6 +6,7 @@ import com.example.layeredarchitecture.dao.Custom.OrderDAO;
 import com.example.layeredarchitecture.dao.Custom.OrderDetailDAO;
 import com.example.layeredarchitecture.dao.DAOFactory;
 import com.example.layeredarchitecture.db.DBConnection;
+import com.example.layeredarchitecture.entity.Item;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDetailDTO;
 
@@ -62,7 +63,7 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
             item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
             //update item
-            boolean b = itemDao.update(new ItemDTO(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand()));
+            boolean b = itemDao.update(new Item(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand()));
 
             if (!b) {
                 connection.rollback();

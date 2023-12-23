@@ -2,6 +2,7 @@ package com.example.layeredarchitecture.controller;
 
 import com.example.layeredarchitecture.bo.CustomerBO;
 import com.example.layeredarchitecture.dao.FactoryBO;
+import com.example.layeredarchitecture.entity.Customer;
 import com.example.layeredarchitecture.model.CustomerDTO;
 import com.example.layeredarchitecture.view.tdm.CustomerTM;
 import com.jfoenix.controls.JFXButton;
@@ -73,14 +74,14 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try {
 
-            ArrayList <CustomerDTO> allCustomer = customerBO.getAllCustomers();
+            ArrayList <Customer> allCustomer = customerBO.getAllCustomers();
 
-            for (CustomerDTO customerDTO : allCustomer ){
+            for (Customer customer : allCustomer ){
                 tblCustomers.getItems().add(
                         new CustomerTM(
-                                customerDTO.getId(),
-                                customerDTO.getName(),
-                                customerDTO.getAddress()));
+                                customer.getId(),
+                                customer.getName(),
+                                customer.getAddress()));
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -152,7 +153,7 @@ public class ManageCustomersFormController {
                 }
 
 
-               boolean isSaved = customerBO.saveCustomer(new CustomerDTO(id,name,address));
+               boolean isSaved = customerBO.saveCustomer(new Customer(id,name,address));
 
                if (!isSaved){
                    new Alert(Alert.AlertType.ERROR ,"Failed to save the customer!");
@@ -173,7 +174,7 @@ public class ManageCustomersFormController {
                 }
 
 
-                Boolean isSaved = customerBO.updateCustomer(new CustomerDTO(
+                Boolean isSaved = customerBO.updateCustomer(new Customer(
                         id,
                         name,
                         address

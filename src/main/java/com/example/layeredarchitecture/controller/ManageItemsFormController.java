@@ -3,6 +3,7 @@ package com.example.layeredarchitecture.controller;
 import com.example.layeredarchitecture.bo.ItemBO;
 import com.example.layeredarchitecture.bo.Custom.Impl.ItemBOImpl;
 import com.example.layeredarchitecture.dao.FactoryBO;
+import com.example.layeredarchitecture.entity.Item;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.view.tdm.ItemTM;
 import com.jfoenix.controls.JFXButton;
@@ -76,15 +77,15 @@ public class ManageItemsFormController {
         try {
             /*Get all items*/
 
-            ArrayList<ItemDTO> allItems = itemBO.getAll();
+            ArrayList<Item> allItems = itemBO.getAll();
 
-            for (ItemDTO itemDTO : allItems ){
+            for (Item item : allItems ){
                 tblItems.getItems().add(
                         new ItemTM(
-                                itemDTO.getCode(),
-                                itemDTO.getDescription(),
-                                itemDTO.getUnitPrice(),
-                                itemDTO.getQtyOnHand()
+                                item.getCode(),
+                                item.getDescription(),
+                                item.getUnitPrice(),
+                                item.getQtyOnHand()
                         ));
             }
         } catch (SQLException e) {
@@ -186,7 +187,7 @@ public class ManageItemsFormController {
                 }
                 //Save Item
 
-               boolean isSaved = itemBO.saveItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
+               boolean isSaved = itemBO.saveItem(new Item(code,description,unitPrice,qtyOnHand));
 
                if (isSaved){ new Alert(Alert.AlertType.CONFIRMATION,"Item Saved!").show(); }
 
@@ -205,7 +206,7 @@ public class ManageItemsFormController {
                 }
                 /*Update Item*/
 
-              boolean isUpdated = itemBO.updateItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
+              boolean isUpdated = itemBO.updateItem(new Item(code,description,unitPrice,qtyOnHand));
 
               if (isUpdated){ new Alert(Alert.AlertType.CONFIRMATION,"Item Updated!").show(); }
 
