@@ -144,7 +144,7 @@ public class ManageItemsFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
 
-          boolean isDeleted = itemBO.delete(code);
+          boolean isDeleted = itemBO.deleteItem(code);
 
           if (isDeleted){ new Alert(Alert.AlertType.INFORMATION,"Item Deleted!").show(); }
 
@@ -187,7 +187,7 @@ public class ManageItemsFormController {
                 }
                 //Save Item
 
-               boolean isSaved = itemBO.save(new ItemDTO(code,description,unitPrice,qtyOnHand));
+               boolean isSaved = itemBO.saveItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                if (isSaved){ new Alert(Alert.AlertType.CONFIRMATION,"Item Saved!").show(); }
 
@@ -206,7 +206,7 @@ public class ManageItemsFormController {
                 }
                 /*Update Item*/
 
-              boolean isUpdated = itemBO.update(new ItemDTO(code,description,unitPrice,qtyOnHand));
+              boolean isUpdated = itemBO.updateItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
               if (isUpdated){ new Alert(Alert.AlertType.CONFIRMATION,"Item Updated!").show(); }
 
@@ -228,7 +228,7 @@ public class ManageItemsFormController {
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
 
-       boolean isExist = itemBO.exist(code);
+       boolean isExist = itemBO.existItem(code);
 
        return isExist;
     }

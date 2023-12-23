@@ -75,7 +75,7 @@ public class ManageCustomersFormController {
         /*Get all customers*/
         try {
 
-            ArrayList <CustomerDTO> allCustomer = customerBO.getAll();
+            ArrayList <CustomerDTO> allCustomer = customerBO.getAllCustomers();
 
             for (CustomerDTO customerDTO : allCustomer ){
                 tblCustomers.getItems().add(
@@ -154,7 +154,7 @@ public class ManageCustomersFormController {
                 }
 
 
-               boolean isSaved = customerBO.save(new CustomerDTO(id,name,address));
+               boolean isSaved = customerBO.saveCustomer(new CustomerDTO(id,name,address));
 
                if (!isSaved){
                    new Alert(Alert.AlertType.ERROR ,"Failed to save the customer!");
@@ -175,7 +175,7 @@ public class ManageCustomersFormController {
                 }
 
 
-                Boolean isSaved = customerBO.update(new CustomerDTO(
+                Boolean isSaved = customerBO.updateCustomer(new CustomerDTO(
                         id,
                         name,
                         address
@@ -216,7 +216,7 @@ public class ManageCustomersFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such customer associated with the id " + id).show();
             }
 
-           boolean isSaved = customerBO.delete(id);
+           boolean isSaved = customerBO.deleteCustomer(id);
 
            if (isSaved){
                new Alert(Alert.AlertType.CONFIRMATION,"Customer Deleted!").show();
