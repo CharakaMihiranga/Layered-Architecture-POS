@@ -3,6 +3,7 @@ package com.example.layeredarchitecture.bo.Custom.Impl;
 import com.example.layeredarchitecture.bo.CustomerBO;
 import com.example.layeredarchitecture.dao.Custom.CustomerDAO;
 import com.example.layeredarchitecture.dao.Custom.Impl.CustomerDaoImpl;
+import com.example.layeredarchitecture.dao.DAOFactory;
 import com.example.layeredarchitecture.model.CustomerDTO;
 
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class CustomerBOImpl implements CustomerBO {
 
-    CustomerDAO customerDAO=new CustomerDaoImpl();
+    CustomerDAO customerDAO= (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
 
     @Override
     public boolean saveCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {

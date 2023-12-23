@@ -3,6 +3,7 @@ package com.example.layeredarchitecture.bo.Custom.Impl;
 import com.example.layeredarchitecture.bo.ItemBO;
 import com.example.layeredarchitecture.dao.Custom.Impl.ItemDaoImpl;
 import com.example.layeredarchitecture.dao.Custom.ItemDAO;
+import com.example.layeredarchitecture.dao.DAOFactory;
 import com.example.layeredarchitecture.model.ItemDTO;
 
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class ItemBOImpl implements ItemBO {
 
-    ItemDAO itemDAO = new ItemDaoImpl();
+    ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
 
     @Override
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {

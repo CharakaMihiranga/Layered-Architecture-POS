@@ -9,6 +9,7 @@ import com.example.layeredarchitecture.dao.Custom.Impl.OrderDetailDaoImpl;
 import com.example.layeredarchitecture.dao.Custom.ItemDAO;
 import com.example.layeredarchitecture.dao.Custom.OrderDAO;
 import com.example.layeredarchitecture.dao.Custom.OrderDetailDAO;
+import com.example.layeredarchitecture.dao.DAOFactory;
 import com.example.layeredarchitecture.db.DBConnection;
 import com.example.layeredarchitecture.model.ItemDTO;
 import com.example.layeredarchitecture.model.OrderDTO;
@@ -21,10 +22,9 @@ import java.util.List;
 
 public class PlaceOrderBOImpl implements PlaceOrderBO {
 
-    CustomerDAO customerDao = new CustomerDaoImpl();
-    OrderDAO orderDao = new OrderDaoImpl();
-    OrderDetailDAO orderDetailDao = new OrderDetailDaoImpl();
-    ItemDAO itemDao = new ItemDaoImpl();
+    OrderDAO orderDao = (OrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER);
+    OrderDetailDAO orderDetailDao = (OrderDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ORDER_DETAIL);
+    ItemDAO itemDao = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
 
 
     @Override
