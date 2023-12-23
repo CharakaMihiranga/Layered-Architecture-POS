@@ -12,4 +12,8 @@ public class DAOFactory {
                 = new DAOFactory() : daoFactory;
     }
 
+    public enum DAOTypes {
+        CUSTOMER,ITEM,ORDER,ORDER_DETAIL,QUERY
+    }
+
 }
