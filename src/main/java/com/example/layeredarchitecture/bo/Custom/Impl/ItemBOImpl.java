@@ -1,5 +1,6 @@
-package com.example.layeredarchitecture.bo;
+package com.example.layeredarchitecture.bo.Custom.Impl;
 
+import com.example.layeredarchitecture.bo.ItemBO;
 import com.example.layeredarchitecture.dao.Custom.Impl.ItemDaoImpl;
 import com.example.layeredarchitecture.dao.Custom.ItemDAO;
 import com.example.layeredarchitecture.model.ItemDTO;

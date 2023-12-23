@@ -1,4 +1,4 @@
-package com.example.layeredarchitecture.controller;
+package com.example.layeredarchitecture;
 
 public class SpecialNotes {
 
@@ -15,4 +15,6 @@ public class SpecialNotes {
 //            System.out.println(s);
 //        }
 //    }
+
+    //Business Layer = Service Layer;
 }
