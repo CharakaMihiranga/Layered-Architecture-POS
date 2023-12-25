@@ -3,6 +3,7 @@ package com.example.layeredarchitecture.dao;
 import com.example.layeredarchitecture.bo.Custom.Impl.CustomerBOImpl;
 import com.example.layeredarchitecture.bo.Custom.Impl.ItemBOImpl;
 import com.example.layeredarchitecture.bo.Custom.Impl.PlaceOrderBOImpl;
+import com.example.layeredarchitecture.bo.Custom.Impl.QueryBOImpl;
 import com.example.layeredarchitecture.bo.SuperBO;
 
 public class FactoryBO {
@@ -14,7 +15,7 @@ public class FactoryBO {
     }
 
     public enum BOTypes {
-        CUSTOMERBO,ITEMBO,PLACEORDERBO
+        CUSTOMERBO,ITEMBO,PLACEORDERBO,QUERY
     }
 
     public SuperBO getBO (BOTypes boTypes){
@@ -25,6 +26,8 @@ public class FactoryBO {
                 return new ItemBOImpl();
             case PLACEORDERBO:
                 return new PlaceOrderBOImpl();
+            case QUERY:
+                return new QueryBOImpl();
             default:
                 return null;
         }

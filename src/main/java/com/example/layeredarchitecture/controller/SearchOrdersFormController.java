@@ -1,8 +1,14 @@
 package com.example.layeredarchitecture.controller;
 
+import com.example.layeredarchitecture.bo.Custom.Impl.QueryBOImpl;
+import com.example.layeredarchitecture.bo.CustomerBO;
+import com.example.layeredarchitecture.bo.QueryBO;
 import com.example.layeredarchitecture.dao.Custom.Impl.OrderDaoImpl;
 import com.example.layeredarchitecture.dao.Custom.Impl.QueryDaoImpl;
 import com.example.layeredarchitecture.dao.Custom.QueryDAO;
+import com.example.layeredarchitecture.dao.DAOFactory;
+import com.example.layeredarchitecture.dao.FactoryBO;
+import com.example.layeredarchitecture.entity.Search;
 import com.example.layeredarchitecture.model.OrderDTO;
 import com.example.layeredarchitecture.model.SearchDTO;
 import javafx.application.Platform;
@@ -47,10 +53,10 @@ public class SearchOrdersFormController {
 
     @FXML
     private AnchorPane root;
+    QueryBO queryBO = (QueryBO) FactoryBO.getBoFactory().getBO(FactoryBO.BOTypes.QUERY);
 
-    QueryDAO queryDao = new QueryDaoImpl();
 
-    ArrayList<SearchDTO> allOrderDetails= new ArrayList<>();
+    ArrayList<Search> allOrderDetails= new ArrayList<>();
 
     public void initialize(){
         loadAllOrderIds();
@@ -58,9 +64,9 @@ public class SearchOrdersFormController {
 
     private void loadAllOrderIds() {
         try {
-             allOrderDetails = queryDao.getOrderDetail();
+             allOrderDetails = queryBO.getOrderDetail();
 
-            for (SearchDTO dto : allOrderDetails ) {
+            for (Search dto : allOrderDetails ) {
                 orderID.getItems().add(dto.getOrderId());
             }
         } catch (SQLException e) {

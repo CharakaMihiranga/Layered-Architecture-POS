@@ -2,6 +2,7 @@ package com.example.layeredarchitecture.dao.Custom.Impl;
 
 import com.example.layeredarchitecture.dao.Custom.QueryDAO;
 import com.example.layeredarchitecture.dao.SQLUtil;
+import com.example.layeredarchitecture.entity.Search;
 import com.example.layeredarchitecture.model.CustomDTO;
 import com.example.layeredarchitecture.model.OrderDTO;
 import com.example.layeredarchitecture.model.SearchDTO;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class QueryDaoImpl implements QueryDAO {
 
     @Override
-    public ArrayList<SearchDTO> getOrderDetail() throws SQLException, ClassNotFoundException {
+    public ArrayList<Search> getOrderDetail() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT\n" +
                 "    o.oid AS OrderID,\n" +
                 "    o.date AS OrderDate,\n" +
@@ -32,10 +33,10 @@ public class QueryDaoImpl implements QueryDAO {
                 "GROUP BY\n" +
                 "    o.oid, o.date, o.customerID, c.name, od.itemCode, od.qty, od.unitPrice;\n");
 
-        ArrayList<SearchDTO> allOrderDetails = new ArrayList<>();
+        ArrayList<Search> allOrderDetails = new ArrayList<>();
 
         while (rst.next()) {
-            SearchDTO searchDTO = new SearchDTO(
+            Search search = new Search(
                     rst.getString("OrderID"),
                     rst.getDate("OrderDate").toLocalDate(),
                     rst.getString("CustomerID"),
@@ -45,7 +46,7 @@ public class QueryDaoImpl implements QueryDAO {
                     rst.getInt("Quantity"),
                     rst.getBigDecimal("UnitPrice")
             );
-            allOrderDetails.add(searchDTO);
+            allOrderDetails.add(search);
         }
         return allOrderDetails;
     }
